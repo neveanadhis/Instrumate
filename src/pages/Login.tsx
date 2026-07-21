@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import api from "../api/axios";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -11,8 +10,21 @@ const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await api.post("login/", { username, password });
-      navigate("/home");
+      const response = await fetch("http://localhost:8000/auth/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ username, password }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("access_token", data.access_token);
+        navigate("/home");
+      } else {
+        alert("Login failed");
+      }
     } catch (error: any) {
       alert("Login failed");
     }

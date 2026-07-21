@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { 
   Sprout, 
   BookOpenCheck, 
@@ -12,6 +13,8 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
 const LearningPage: React.FC = () => {
+
+  const navigate = useNavigate();
   
   const handleComingSoon = (level: string) => {
     MySwal.fire({
@@ -40,6 +43,7 @@ const LearningPage: React.FC = () => {
     });
   };
 
+
   return (
     <div className="min-h-screen bg-[#FAF9F6] font-['Outfit',sans-serif] flex flex-col items-center px-6">
       
@@ -59,10 +63,11 @@ const LearningPage: React.FC = () => {
 
       {/* --- CARDS GRID --- */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+
         
         {/* Beginner */}
         <div 
-          onClick={() => handleComingSoon("Beginner")}
+          onClick={() => navigate("/learning/courses/") }
           className="group relative bg-white p-10 rounded-[3.5rem] border-2 border-transparent hover:border-[#D1FAE5] hover:bg-[#D1FAE5]/30 cursor-pointer transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.03)]"
         >
           <div className="w-20 h-20 bg-[#D1FAE5] rounded-3xl flex items-center justify-center text-green-600 mb-8 group-hover:scale-110 transition-transform">

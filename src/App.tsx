@@ -15,7 +15,13 @@ import Translation from "./pages/Translation";
 import Learn from "./pages/Learn";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Logout from "./pages/Logout"
 import Demo from "./demo/demo";
+import CoursesPage from "./pages/learning/courses/courses";
+import ModulesPage from "./pages/learning/courses/modules/modules";
+import ChaptersPage from "./pages/learning/courses/modules/chapters/chapters";
+import ChapterContentPage from "./pages/learning/courses/modules/chapters/content";
+
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -36,7 +42,12 @@ function AnimatedRoutes() {
           <Route path="/Learn" element={<Learn />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/demo" element={<Demo />} />
+          <Route path="/learning/courses" element={<CoursesPage />} />
+          <Route path="/learning/courses/modules/:courseId" element={<ModulesPage />} />
+          <Route path="/learning/courses/modules/:courseId/chapters/:moduleId" element={<ChaptersPage />} />
+          <Route path="/learning/courses/modules/:courseId/chapters/:moduleId/content/:chapterId" element={<ChapterContentPage />} />
         </Route>
       </Routes>
     </AnimatePresence>
