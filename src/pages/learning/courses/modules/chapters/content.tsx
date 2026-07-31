@@ -44,6 +44,26 @@ const ChapterContentPage: React.FC = () => {
             }
 
             const content = await response.json();
+            // console.log(content);
+            // get file from server
+            const file_path = content.content_filepath;
+
+            try {
+                const file = await apiFetch(`http://localhost:8000/api/lms/media/${file_path}`, {
+                    method: 'GET',
+                });
+                
+                if (!file.ok){
+                    const errorData = await file.json();
+                    throw new Error(errorData.detail || 'Failed to fetch chapter content');
+                }
+                const file_data = await file.text();
+                content.content_filepath = file_data;
+            } catch (error){
+                console.error('Error fetching chapter content:', error);
+                setErrorMessage(error instanceof Error ? error.message : 'An unknown error occurred');
+            }
+
             setChapterContent(content);
         } catch (error) {
             console.error('Error fetching chapter content:', error);

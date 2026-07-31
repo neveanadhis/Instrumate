@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageWrapper from "../../../../components/PageWrapper";
-import { apiFetch } from "../../../../api/api";
 import { useParams } from "react-router-dom";
+import { apiFetch } from "../../../../api/api";
 
 const ModulesPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();

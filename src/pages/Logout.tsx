@@ -1,5 +1,10 @@
 import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "../api/api";
+
+
+  // If "Logout" export is a function that performs logout (returns void),
+  // wrap it in a component so it can be used as a route element.
 
 
 const Logout = () => {
@@ -12,19 +17,16 @@ const Logout = () => {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch("http://localhost:8000/auth/logout/", {
+            const response = await apiFetch("http://localhost:8000/auth/logout/", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include", // <-- CRITICAL: Allows cookie deletion
+
             });
             if (!response.ok) {
                 throw new Error("Failed to logout");
             }
             const data = await response.json();
             console.log(data);
-            localStorage.removeItem("access_token");
+
             // Redirect to login page
             // window.location.href = "/login";
             navigate("/login");
@@ -32,7 +34,7 @@ const Logout = () => {
             console.error("Error during logout:", error);
         }
 
+    };  
     return null; // You can return null since this component doesn't render anything
-    }
     }
 export default Logout;

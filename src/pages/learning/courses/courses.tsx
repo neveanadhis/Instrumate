@@ -26,6 +26,7 @@ const CoursesPage: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.log(errorData)
         throw new Error(errorData.detail || 'Failed to fetch course data');
       }
     const data = await response.json();

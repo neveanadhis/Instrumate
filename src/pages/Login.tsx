@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { apiFetch } from "../api/api";
+// import { apiFetch } from "../api/api";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -10,17 +12,13 @@ const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/auth/login/", {
+      const response = await apiFetch("http://localhost:8000/auth/login/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
         body: JSON.stringify({ username, password }),
       });
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("access_token", data.access_token);
+        console.log(data)
         navigate("/home");
       } else {
         alert("Login failed");
