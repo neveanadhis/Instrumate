@@ -1,40 +1,27 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "../api/api";
-
-
-  // If "Logout" export is a function that performs logout (returns void),
-  // wrap it in a component so it can be used as a route element.
-
+import api from "../api/axios";
 
 const Logout = () => {
-  // Clear the token from localStorage
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-    useEffect(() => {
-        handleLogout();
-    }, []);
-
+  useEffect(() => {
     const handleLogout = async () => {
-        try {
-            const response = await apiFetch("http://localhost:8000/auth/logout/", {
-                method: "POST",
+      try {
+        localStorage.removeItem("token");
+        await api.post("auth/logout/", {});
+        console.log("Logged out successfully");
+      } catch (error: any) {
+        console.error("Logout error:", error.response?.data || error.message);
+      } finally {
+        navigate("/login");
+      }
+    };
 
-            });
-            if (!response.ok) {
-                throw new Error("Failed to logout");
-            }
-            const data = await response.json();
-            console.log(data);
+    handleLogout();
+  }, [navigate]);
 
-            // Redirect to login page
-            // window.location.href = "/login";
-            navigate("/login");
-        } catch (error) {
-            console.error("Error during logout:", error);
-        }
+  return null;
+};
 
-    };  
-    return null; // You can return null since this component doesn't render anything
-    }
 export default Logout;

@@ -15,9 +15,10 @@ const Signup: React.FC = () => {
     try {
       await api.post("register/", { username, email, password, is_student: !isTeacher, is_teacher: isTeacher });
       navigate("/login");
-    } catch (error) {
-      alert("Signup failed");
-    }
+    } catch (error: any) {
+  console.log("Signup error:", error.response?.data);
+  alert(JSON.stringify(error.response?.data));
+}
   };
 
   return (

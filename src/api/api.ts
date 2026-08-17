@@ -24,7 +24,7 @@ export const apiFetch = async (url: string, options: RequestInit = {}): Promise<
 
 const refreshAccessToken = async (): Promise<boolean> => {
   try {
-    const response = await fetch("http://localhost:8000/auth/refresh/", {
+    const response = await fetch("http://127.0.0.1:8000/auth/refresh/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include", 
