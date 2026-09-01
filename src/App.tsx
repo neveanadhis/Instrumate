@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
@@ -15,13 +16,10 @@ import Translation from "./pages/Translation";
 // import Learn from "./pages/Learn";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Logout from "./pages/Logout"
+import Logout from "./pages/Logout";
 import Demo from "./demo/demo";
-import CoursesPage from "./pages/learning/courses/courses";
-import ModulesPage from "./pages/learning/courses/modules/modules";
-import ChaptersPage from "./pages/learning/courses/modules/chapters/chapters";
-import ChapterContentPage from "./pages/learning/courses/modules/chapters/content";
-
+import { Courses } from './pages/lms/Courses';
+import { Classroom } from './pages/lms/Classroom';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -44,10 +42,12 @@ function AnimatedRoutes() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/demo" element={<Demo />} />
-          <Route path="/learning/courses" element={<CoursesPage />} />
-          <Route path="/learning/courses/modules/:courseId" element={<ModulesPage />} />
-          <Route path="/learning/courses/modules/:courseId/chapters/:moduleId" element={<ChaptersPage />} />
-          <Route path="/learning/courses/modules/:courseId/chapters/:moduleId/content/:chapterId" element={<ChapterContentPage />} />
+          {/* Catalog route */}
+          <Route path="/courses" element={<Courses />} />
+          {/* Classroom unified layout */}
+          <Route path="/courses/:courseId" element={<Classroom />} />
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/courses" replace />} />
         </Route>
       </Routes>
     </AnimatePresence>
